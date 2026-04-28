@@ -110,9 +110,17 @@ export default function RootLayout({
         <div className="flex-1">{children}</div>
         <footer className="border-t border-zinc-100 py-12">
           <div className="container mx-auto max-w-screen-2xl px-4 md:px-8">
-            <p className="text-center text-sm leading-loose text-zinc-500">
-              Built for Simplicity. Evaliphy &copy; {new Date().getFullYear()}
-            </p>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-center text-sm leading-loose text-zinc-500">
+                Built for Simplicity. Evaliphy &copy; {new Date().getFullYear()}
+              </p>
+              <a
+                href="/llm.txt"
+                className="text-xs text-zinc-400 hover:text-zinc-600 transition-colors underline underline-offset-4"
+              >
+                llm.txt
+              </a>
+            </div>
           </div>
         </footer>
       </body>

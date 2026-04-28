@@ -1,0 +1,32 @@
+# Evaliphy -  Testing Framework for AI Systems
+
+Evaliphy is the first QA-centric, end-to-end RAG (Retrieval-Augmented Generation) testing framework. It treats RAG systems as a black box, allowing engineers to validate AI behavior through clear, readable assertions without needing to understand retrieval pipelines, prompt engineering, or ML metrics.
+
+## Key Features
+- **TypeScript-native**: Eval files sit in your repo alongside other tests.
+- **CI/CD Ready**: Runs in CI like any other test suite.
+- **Real API Testing**: Makes HTTP calls to your actual running service.
+- **Built-in Judges**: Includes assertions for Faithfulness, Relevance, and Groundedness.
+- **QA-Friendly**: Assertion style similar to Jest, Vitest, or Playwright.
+
+## Quick Start
+```bash
+npm install -g evaliphy
+evaliphy init my-project
+```
+
+## Core Concepts
+- **Assertions**: Use `expect(query, context, response).toBeFaithful()` to validate RAG outputs.
+- **HTTP Client**: Configurable client to interact with your RAG API.
+- **LLM-as-a-Judge**: Uses LLMs to evaluate the quality of responses based on retrieved context.
+
+## Documentation Sections
+- **Introduction**: Overview and motivation.
+- **Quick Start**: Getting up and running.
+- **How Evaliphy Works**: Architecture and workflow.
+- **Assertions API**: Detailed guide on available assertions.
+- **Configuration**: How to customize Evaliphy for your project.
+- **Reporting**: Understanding evaluation results.
+
+## Comparison with Other Tools
+Unlike DeepEval or Ragas which are built for ML engineers and Python environments, Evaliphy is built for QA engineers using TypeScript, focusing on CI/CD integration and end-to-end testing of live APIs.
