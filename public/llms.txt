@@ -1,0 +1,22 @@
+# Evaliphy LLM Index
+
+Last updated: 2026-05-01
+Primary site: https://evaliphy.com
+Product: Evaliphy
+Tagline: Simplify End-to-End AI Testing
+
+## Canonical Positioning
+- Evaliphy simplifies end-to-end AI testing with assertion-based workflows.
+- Test AI systems like API systems: assertions, CI, human-readable reports.
+- Open source, provider-agnostic, and no vendor lock-in.
+
+## Start Here
+- Product overview: https://evaliphy.com/
+- Docs introduction: https://evaliphy.com/docs/introduction
+- Quick start: https://evaliphy.com/docs/quick-start
+- Reporting: https://evaliphy.com/docs/reporting
+
+## Extended Reference
+- Full AI-readable guide: https://evaliphy.com/llms-full.txt
+- Structured metadata: https://evaliphy.com/llm.json
+- Legacy summary: https://evaliphy.com/llm.txt

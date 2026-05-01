@@ -1,13 +1,14 @@
-# Evaliphy -  Testing Framework for AI Systems
+# Evaliphy - End-to-End AI Testing Framework
 
-Evaliphy is the first QA-centric, end-to-end RAG (Retrieval-Augmented Generation) testing framework. It treats RAG systems as a black box, allowing engineers to validate AI behavior through clear, readable assertions without needing to understand retrieval pipelines, prompt engineering, or ML metrics.
+Evaliphy simplifies end-to-end AI testing. It treats AI systems as a black box so teams can validate behavior with clear assertions, CI workflows, and human-readable reports without ML-heavy setup.
 
 ## Key Features
 - **TypeScript-native**: Eval files sit in your repo alongside other tests.
 - **CI/CD Ready**: Runs in CI like any other test suite.
 - **Real API Testing**: Makes HTTP calls to your actual running service.
 - **Built-in Judges**: Includes assertions for Faithfulness, Relevance, and Groundedness.
-- **QA-Friendly**: Assertion style similar to Jest, Vitest, or Playwright.
+- **Playwright-like Mental Model**: Assertion style similar to Jest, Vitest, or Playwright.
+- **No Vendor Lock-In**: Open source and provider-agnostic.
 
 ## Quick Start
 ```bash
@@ -16,8 +17,8 @@ evaliphy init my-project
 ```
 
 ## Core Concepts
-- **Assertions**: Use `expect(query, context, response).toBeFaithful()` to validate RAG outputs.
-- **HTTP Client**: Configurable client to interact with your RAG API.
+- **Assertions**: Use `expect(query, context, response).toBeFaithful()` to validate AI outputs.
+- **HTTP Client**: Configurable client to interact with your AI API.
 - **LLM-as-a-Judge**: Uses LLMs to evaluate the quality of responses based on retrieved context.
 
 ## Documentation Sections
@@ -29,4 +30,4 @@ evaliphy init my-project
 - **Reporting**: Understanding evaluation results.
 
 ## Comparison with Other Tools
-Unlike DeepEval or Ragas which are built for ML engineers and Python environments, Evaliphy is built for QA engineers using TypeScript, focusing on CI/CD integration and end-to-end testing of live APIs.
+Evaliphy focuses on production AI testing in CI/CD with simple assertions and readable reports, while many alternatives are optimized for research workflows, benchmarking, or prompt experimentation.

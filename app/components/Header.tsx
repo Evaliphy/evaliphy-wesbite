@@ -19,7 +19,7 @@ export function Header() {
               href="/docs/understanding-RAG-testing"
               className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900"
             >
-              RAG Testing Guide
+              AI Testing Guide
             </Link>
             <Link
               href="/docs/introduction"
@@ -86,7 +86,7 @@ export function Header() {
               className="text-base font-medium text-zinc-600 transition-colors hover:text-zinc-900"
               onClick={() => setIsMenuOpen(false)}
             >
-              RAG Testing Guide
+              AI Testing Guide
             </Link>
             <Link
               href="/docs/introduction"

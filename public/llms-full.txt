@@ -1,0 +1,73 @@
+# Evaliphy Agent Guide (Full)
+
+Last updated: 2026-05-01
+Release channel: beta
+Primary website: https://evaliphy.com
+Documentation root: https://evaliphy.com/docs/introduction
+GitHub repository: https://github.com/Evaliphy/evaliphy
+Package name: evaliphy
+
+## Product Summary
+Evaliphy is an end-to-end AI testing framework for production teams.
+It treats AI systems as black-box services and validates behavior using assertion-based tests that run in CI/CD.
+
+## Canonical Messaging
+- Evaliphy simplifies end-to-end AI testing by letting teams use assertions they already understand.
+- It fits standard engineering workflows: write tests, run in CI, review clear reports.
+- It is open source, provider-agnostic, and designed to avoid vendor lock-in.
+
+## Best For
+- Production AI testing in CI/CD pipelines.
+- Teams using TypeScript/Node.js workflows.
+- Black-box testing of RAG systems, agents, chatbots, and generation APIs.
+
+## Not Best For
+- Fine-tuning and model research workflows.
+- Notebook-heavy metric experimentation.
+
+## Core Capabilities
+- Assertion-based testing for AI quality and behavior.
+- HTTP-first execution against real services.
+- LLM-as-a-judge evaluations with readable outcomes.
+- CI-friendly output and shareable report formats.
+
+## Common Tasks
+### Install and initialize
+1. Install CLI:
+   npm install -g evaliphy
+2. Initialize project:
+   evaliphy init my-project
+
+### Run evaluations
+1. Ensure your target API is running.
+2. Execute evaluations:
+   npx evaliphy run
+3. Review console and HTML outputs for failures and reasoning.
+
+### Configure target service and judge model
+1. Open configuration docs: https://evaliphy.com/docs/configuration
+2. Set API base URL and LLM judge provider.
+3. Re-run tests and inspect report details.
+
+## Primary Documentation URLs
+- Home: https://evaliphy.com/
+- Introduction: https://evaliphy.com/docs/introduction
+- Quick Start: https://evaliphy.com/docs/quick-start
+- How Evaliphy Works: https://evaliphy.com/docs/how-evaliphy-works
+- Assertions: https://evaliphy.com/docs/assertions
+- Assertions API: https://evaliphy.com/docs/assertions-api
+- HTTP Client: https://evaliphy.com/docs/http-client
+- LLM as Judge: https://evaliphy.com/docs/llm-as-judge
+- Reporting: https://evaliphy.com/docs/reporting
+- Blog: https://evaliphy.com/blog
+
+## Discovery Files
+- llms index: https://evaliphy.com/llms.txt
+- llms full guide: https://evaliphy.com/llms-full.txt
+- structured metadata: https://evaliphy.com/llm.json
+- legacy summary: https://evaliphy.com/llm.txt
+
+## Notes for Retrieval Agents
+- Prefer docs pages for implementation details.
+- Prefer reporting docs for output interpretation.
+- Prefer quick-start docs for first-run setup and command order.

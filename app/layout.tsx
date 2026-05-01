@@ -16,19 +16,25 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://evaliphy.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
-    default: "Evaliphy | QA-First RAG Testing Framework",
+    default: "Evaliphy | Simplify End-to-End AI Testing",
     template: "%s | Evaliphy",
   },
   description:
-    "Evaliphy is the end-to-end RAG Testing framework for QA engineers. Write assertions in TypeScript, test your real API, get structured reports. No ML background required.",
+    "Evaliphy simplifies end-to-end AI testing. Write assertions like API tests, run in CI, and get human-readable reports. Open source, no ML overhead, no vendor lock-in.",
   keywords: [
-    "RAG evaluation",
-    "RAG Testing",
-    "LLM testing",
-    "QA engineering",
+    "end-to-end AI testing",
     "AI testing framework",
-    "RAG observability",
+    "LLM testing",
+    "Playwright for AI",
+    "open source AI testing",
+    "AI testing in CI",
+    "human-readable AI reports",
+    "no vendor lock-in",
+    "no ML overhead",
     "LLM as a judge",
     "TypeScript",
     "Node.js",
@@ -46,9 +52,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://evaliphy.com",
     siteName: "Evaliphy",
-    title: "Evaliphy | QA-First RAG Testing Framework",
+    title: "Evaliphy | Simplify End-to-End AI Testing",
     description:
-      "The end-to-end RAG testing framework for QA engineers. Assertions, real API calls, CI reports. No ML required.",
+      "Like Playwright for your AI system: simple assertions, CI-ready runs, and human-readable reports. Open source with no vendor lock-in.",
     images: [
       {
         url: "/images/report.png",
@@ -60,9 +66,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Evaliphy | QA-First RAG Testing Framework",
+    title: "Evaliphy | Simplify End-to-End AI Testing",
     description:
-      "The end-to-end RAG testing framework for QA engineers. Assertions, real API calls, CI reports. No ML required.",
+      "Like Playwright for your AI system: simple assertions, CI-ready runs, and human-readable reports.",
     images: ["/images/report.png"],
     creator: "@evaliphy",
   },
@@ -112,7 +118,7 @@ export default function RootLayout({
           <div className="container mx-auto max-w-screen-2xl px-4 md:px-8">
             <div className="flex flex-col items-center gap-2">
               <p className="text-center text-sm leading-loose text-zinc-500">
-                Built for Simplicity. Evaliphy &copy; {new Date().getFullYear()}
+                Simplify end-to-end AI testing. Assertions, CI, and human-readable reports. Open source and no vendor lock-in. &copy; {new Date().getFullYear()}
               </p>
               <a
                 href="/llm.txt"

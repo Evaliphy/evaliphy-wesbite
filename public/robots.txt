@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Allow: /llm.txt
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /llm.json
 
 Sitemap: https://evaliphy.com/sitemap.xml

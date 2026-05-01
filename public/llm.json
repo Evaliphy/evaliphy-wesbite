@@ -1,0 +1,47 @@
+{
+  "name": "Evaliphy",
+  "website": "https://evaliphy.com",
+  "tagline": "Simplify End-to-End AI Testing",
+  "description": "Evaliphy is an end-to-end AI testing framework that uses assertion-based workflows, CI/CD execution, and human-readable reports.",
+  "lastUpdated": "2026-05-01",
+  "releaseChannel": "beta",
+  "repository": "https://github.com/Evaliphy/evaliphy",
+  "package": "evaliphy",
+  "positioning": [
+    "Test AI systems like API systems.",
+    "Run assertions in CI/CD.",
+    "Review human-readable reports.",
+    "Open source and no vendor lock-in."
+  ],
+  "bestFor": [
+    "Production AI testing in CI/CD",
+    "TypeScript and Node.js engineering teams",
+    "Black-box AI API validation"
+  ],
+  "notBestFor": [
+    "Model fine-tuning research",
+    "Notebook-first experimentation"
+  ],
+  "commands": {
+    "install": "npm install -g evaliphy",
+    "init": "evaliphy init my-project",
+    "run": "npx evaliphy run"
+  },
+  "docs": {
+    "home": "https://evaliphy.com/",
+    "introduction": "https://evaliphy.com/docs/introduction",
+    "quickStart": "https://evaliphy.com/docs/quick-start",
+    "howItWorks": "https://evaliphy.com/docs/how-evaliphy-works",
+    "assertions": "https://evaliphy.com/docs/assertions",
+    "assertionsApi": "https://evaliphy.com/docs/assertions-api",
+    "httpClient": "https://evaliphy.com/docs/http-client",
+    "llmAsJudge": "https://evaliphy.com/docs/llm-as-judge",
+    "reporting": "https://evaliphy.com/docs/reporting",
+    "blog": "https://evaliphy.com/blog"
+  },
+  "discovery": {
+    "llms": "https://evaliphy.com/llms.txt",
+    "llmsFull": "https://evaliphy.com/llms-full.txt",
+    "llmTxt": "https://evaliphy.com/llm.txt"
+  }
+}

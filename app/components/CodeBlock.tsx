@@ -22,9 +22,9 @@ export async function CodeBlock({
       <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-800 bg-zinc-900/50">
         <div className="flex items-center gap-2">
           <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-zinc-800" />
-            <div className="w-3 h-3 rounded-full bg-zinc-800" />
-            <div className="w-3 h-3 rounded-full bg-zinc-800" />
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+            <div className="w-3 h-3 rounded-full bg-green-800" />
           </div>
           {filename && (
             <span className="ml-2 text-xs font-mono text-zinc-500">

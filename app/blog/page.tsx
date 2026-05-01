@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Blog | Evaliphy",
-  description: "Latest news, updates, and deep dives into RAG evaluation from the Evaliphy team.",
+  description: "Latest guides, updates, and practical playbooks for end-to-end AI testing in real CI workflows.",
 };
 
 export default async function BlogPage() {

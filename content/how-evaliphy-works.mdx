@@ -1,6 +1,38 @@
-# How Evaliphy Works
+# How It Works
 
-Evaliphy is designed to bring the rigor of traditional software testing to the non-deterministic world of RAG applications. It operates as a bridge between your running application and a highly capable LLM "Judge" that evaluates the quality of your system's outputs.
+### 1. Write in Your Language
+Use TypeScript. No Python. No notebooks. Just assertions in the language you already code in.
+
+```typescript
+import { evaluate, expect } from 'evaliphy';
+
+evaluate("Return Policy Chat", async ({ httpClient }) => {
+  const res = await httpClient.post('/api/chat', {
+    message: "What is your return policy?"
+  });
+  
+  await expect({
+    query: "What is your return policy?",
+    response: res.answer,
+    context: "Items can be returned within 30 days."
+  }).toBeFaithful();
+});
+```
+
+### 2. Test Your Real API
+No mocks. No offline datasets. Call your actual endpoint. Get actual responses.
+
+### 3. Run in CI
+Works with GitHub Actions, GitLab CI, Jenkins—anywhere you run tests.
+
+```yaml
+- run: npx evaliphy run
+  env:
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+```
+
+### 4. Get Readable Reports
+See what passed, what failed, why it failed. Human-readable. Machine-parseable.
 
 ---
 
@@ -24,24 +56,9 @@ When you call an assertion like `expect(res).toBeFaithful()`, Evaliphy:
 - The Judge returns a numeric score (0.0 to 1.0) and a plain-English reason for that score.
 
 ### 4. Report (Feedback Loop)
-Evaliphy compares the judge's score against your defined **threshold**. 
+Evaliphy compares the judge's score against your defined **threshold**.
 - **Pass**: If the score meets the threshold, the test goes green.
 - **Fail**: If it falls below, Evaliphy provides the judge's reasoning, helping you understand exactly why the response was considered poor quality.
-
----
-
-## Architecture Layers
-
-Evaliphy is built on three distinct layers to ensure stability and performance:
-
-### Collection Layer
-The CLI scans your project for `.eval.ts` files and builds a synchronous test tree. This happens before any I/O or LLM calls, ensuring your test structure is valid.
-
-### Execution Layer
-The runner iterates through the test tree. It manages fixtures (like `httpClient`), handles setup/teardown hooks, and executes your test logic asynchronously.
-
-### Evaluation Layer
-The `expect` engine orchestrates the LLM judge. It handles prompt rendering, manages API calls to the LLM provider, and parses the results into structured data for the reporters.
 
 ---
 

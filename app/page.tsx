@@ -4,29 +4,22 @@ import { CodeBlock } from "./components/CodeBlock";
 
 const exampleCode = `import { evaluate, expect } from 'evaliphy';
 
-const sample = {
-  query: "What is the return policy?",
-  expectedContext: "Items can be returned within 30 days."
-};
+evaluate("RAG /api/chat: return policy answer is faithful",
+  async ({httpClient}) => {
+    const query = "What is your return policy?";
+    const res = await httpClient.post("/api/chat", {message: query});
+    const data = await res.json<ChatResponse>();
 
-evaluate("Return Policy Chat", async ({ httpClient }) => {
-  // 1. Hit your RAG endpoint
-  const res = await httpClient.post('/api/chat', { message: sample.query });
-  const data = await res.json();
+    await expect(query, data.context, data.answer).toBeFaithful({
+        threshold: 0.8,
+    });
 
-  // 2. Assert in plain English
-  await expect({
-    query: sample.query,
-    response: data.answer,
-    context: sample.expectedContext
-  }).toBeFaithful();
-
-  await expect({
-    query: sample.query,
-    response: data.answer,
-    context: sample.expectedContext
-  }).toBeRelevant({threshold:0.7});
-});`;
+    await expect(query, data.context, data.answer).toBeRelevant();
+    await expect(query, data.context, data.answer).toBeGrounded();
+    await expect(data.answer).toBeHarmless();
+    await expect(data.answer).toBeCoherent();
+});
+`;
 
 export default async function Home() {
   const jsonLd = {
@@ -36,7 +29,7 @@ export default async function Home() {
     operatingSystem: "Node.js",
     applicationCategory: "DeveloperApplication",
     description:
-      "Evaliphy is the simplest AI testing framework for engineers. Write assertions in TypeScript, test your real API, get structured reports.",
+      "Evaliphy simplifies end-to-end AI testing by treating your AI system like a black box. Write assertions like API tests, run in CI, and get human-readable reports with no ML overhead.",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -59,17 +52,15 @@ export default async function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
           <div className="lg:col-span-2 flex flex-col items-start space-y-8">
             <div className="inline-flex items-center rounded-full border border-zinc-100 bg-zinc-50 px-3 py-1 text-sm font-medium text-zinc-600">
-              <span className="mr-2">✨</span> Now in beta
+              <span className="mr-2">✨</span> Open Source AI E2E Testing (Open in Beta)
             </div>
 
             <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-zinc-900 leading-[1.1]">
-                Test Your AI Features <br />
-                Like The Rest Of Your Product
+                Simplify End-to-End AI Testing
               </h1>
               <p className="text-xl text-zinc-600 leading-relaxed max-w-xl">
-                Evaliphy fits inside your existing test workflow. Assertions,
-                real API calls, CI reports. No ML required.
+                Like Playwright for your AI system. Write assertions, run in CI, and get human-readable reports. No ML overhead. No vendor lock-in.
               </p>
             </div>
 
@@ -79,13 +70,19 @@ export default async function Home() {
                   href="/docs/quick-start"
                   className="px-8 py-3 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors"
                 >
-                  Get Started
+                  Get Started in 5 Minutes
                 </Link>
                 <Link
                   href="https://github.com/Evaliphy/evaliphy"
                   className="px-8 py-3 border border-zinc-200 text-zinc-900 rounded-lg font-medium hover:bg-zinc-50 transition-colors"
                 >
                   View on GitHub
+                </Link>
+                <Link
+                  href="/docs/quick-start"
+                  className="px-8 py-3 border border-zinc-200 text-zinc-900 rounded-lg font-medium hover:bg-zinc-50 transition-colors"
+                >
+                  See Example Test
                 </Link>
               </div>
             </div>
@@ -122,19 +119,21 @@ export default async function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-zinc-900">
-              What is Evaliphy?
+              Why Evaliphy Exists
             </h2>
             <p className="text-lg text-zinc-600 leading-relaxed">
-              Evaliphy is an AI evaluation framework that treats your AI system
-              as a black box. Write assertions against your real API, get
-              structured results, and catch regressions in CI — without touching
-              internals of AI system or writing prompt engineering from
-              scratch.
+              We built Evaliphy because AI testing should feel as straightforward as API testing:
+              write assertions, run checks in CI, and get clear reports that drive immediate action.
             </p>
-            <p className="text-lg text-zinc-600 leading-relaxed">
-              Built-in LLM-as-Judge assertions handle the hard parts. You focus
-              on writing evaluations, not wiring up models.
-            </p>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-zinc-900">The Core Gap</h3>
+              <ul className="space-y-2 text-zinc-600">
+                <li className="flex items-center gap-2">✅ Your teams already ship with assertion-based tests</li>
+                <li className="flex items-center gap-2">✅ CI/CD already enforces quality for every release</li>
+                <li className="flex items-center gap-2">❌ AI testing often drifts into notebook-heavy, research-first workflows</li>
+                <li className="flex items-center gap-2">❌ Results are frequently too metric-heavy for fast product decisions</li>
+              </ul>
+            </div>
           </div>
           <div className="relative rounded-2xl border border-zinc-200 bg-zinc-50 p-2 overflow-hidden shadow-xl">
             <Image
@@ -187,7 +186,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl md:text-4xl font-bold text-zinc-900">
-              Built for Quality Engineers, not Data Scientists.
+              Four Reasons Teams Choose Evaliphy
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -208,11 +207,10 @@ export default async function Home() {
                 </svg>
               </div>
               <h3 className="text-lg font-semibold text-zinc-900">
-                Understandable Metrics
+                Familiar Mental Model
               </h3>
               <p className="text-zinc-600 leading-relaxed">
-                Forget {'"'}Contextual Precision{'"'} and {'"'}Cosine
-                Similarity.{'"'} Assert against what actually matters:
+                Test AI the same way you test APIs. Use assertions your team understands:
                 <code className="mx-1 text-zinc-900 font-mono text-sm">
                   toBeFaithful()
                 </code>
@@ -244,12 +242,10 @@ export default async function Home() {
                 </svg>
               </div>
               <h3 className="text-lg font-semibold text-zinc-900">
-                Explicit, Traceable Data Flow
+                No Vendor Lock-In
               </h3>
               <p className="text-zinc-600 leading-relaxed">
-                No magic background context. Pass your golden data, CSV rows, or
-                database records directly into the assertions so you always know
-                exactly what is being tested.
+                Open source by default. Bring your own provider, own your test data, and run anywhere from local to CI.
               </p>
             </div>
             <div className="space-y-4">
@@ -269,12 +265,10 @@ export default async function Home() {
                 </svg>
               </div>
               <h3 className="text-lg font-semibold text-zinc-900">
-                Battle-Tested Prompts
+                No ML Overhead
               </h3>
               <p className="text-zinc-600 leading-relaxed">
-                We spent hundreds of hours benchmarking LLM-as-a-judge prompts
-                so you don{"'"}t have to. Just provide your API key, and
-                Evaliphy handles the prompting, parsing, and retry logic.
+                No notebooks, no tuning pipelines, and no research stack. Just write assertions, run tests, and review results.
               </p>
             </div>
             <div className="space-y-4">
@@ -294,11 +288,11 @@ export default async function Home() {
                 </svg>
               </div>
               <h3 className="text-lg font-semibold text-zinc-900">
-                Runs Where You Run
+                Human-Readable Reports
               </h3>
               <p className="text-zinc-600 leading-relaxed">
-                It’s just Node.js. Run your RAG evaluations in GitHub Actions,
-                GitLab CI, or Jenkins using the standard
+                Understand failures quickly with plain-language reasoning and clear pass/fail outcomes you can act on in CI.
+                Run with the standard
                 <code className="mx-1 text-zinc-900 font-mono text-sm">
                   npx evaliphy run
                 </code>{" "}
@@ -313,11 +307,10 @@ export default async function Home() {
       <section className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto w-full">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold text-zinc-900">
-            Built for QA, not Research
+            Quick Comparison
           </h2>
           <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
-            Evaliphy is the only evaluation framework that treats RAG as a black
-            box.
+            Compare approaches, not just tools.
           </p>
         </div>
 
@@ -326,55 +319,94 @@ export default async function Home() {
             <thead>
               <tr className="border-b border-zinc-100">
                 <th className="py-4 px-6 text-left text-sm font-semibold text-zinc-900">
-                  Feature
+                  Aspect
                 </th>
                 <th className="py-4 px-6 text-center text-sm font-semibold text-zinc-900 bg-zinc-50/50">
                   Evaliphy
                 </th>
                 <th className="py-4 px-6 text-center text-sm font-semibold text-zinc-500">
-                  DeepEval / Ragas
+                  Research Tools
+                </th>
+                <th className="py-4 px-6 text-center text-sm font-semibold text-zinc-500">
+                  Prompt Testing
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b border-zinc-100">
-                <td className="py-4 px-6 text-sm text-zinc-600">
-                  Primary Audience
+                <td className="py-4 px-6 text-sm text-zinc-600 font-semibold">
+                  Mental Model
                 </td>
                 <td className="py-4 px-6 text-center text-sm font-medium text-zinc-900 bg-zinc-50/50">
-                  QA & Software Engineers
+                  Assertions like API tests
                 </td>
                 <td className="py-4 px-6 text-center text-sm text-zinc-500">
-                  Data Scientists
+                  Research and optimization
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  Prompt iteration loops
                 </td>
               </tr>
               <tr className="border-b border-zinc-100">
-                <td className="py-4 px-6 text-sm text-zinc-600">Language</td>
+                <td className="py-4 px-6 text-sm text-zinc-600 font-semibold">Workflow</td>
                 <td className="py-4 px-6 text-center text-sm font-medium text-zinc-900 bg-zinc-50/50">
-                  TypeScript / Node.js
+                  CI/CD pipeline
                 </td>
                 <td className="py-4 px-6 text-center text-sm text-zinc-500">
-                  Python
+                  Notebook and experiments
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  CLI or web prompt runs
                 </td>
               </tr>
               <tr className="border-b border-zinc-100">
-                <td className="py-4 px-6 text-sm text-zinc-600">
-                  Testing Style
+                <td className="py-4 px-6 text-sm text-zinc-600 font-semibold">
+                  Setup Time
                 </td>
                 <td className="py-4 px-6 text-center text-sm font-medium text-zinc-900 bg-zinc-50/50">
-                  Black-box (API-driven)
+                  Minutes
                 </td>
                 <td className="py-4 px-6 text-center text-sm text-zinc-500">
-                  White-box (Pipeline-driven)
+                  Hours
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  Minutes
                 </td>
               </tr>
               <tr className="border-b border-zinc-100">
-                <td className="py-4 px-6 text-sm text-zinc-600">Integration</td>
+                <td className="py-4 px-6 text-sm text-zinc-600 font-semibold">ML Knowledge Required</td>
                 <td className="py-4 px-6 text-center text-sm font-medium text-zinc-900 bg-zinc-50/50">
-                  CI/CD Ready (npx)
+                  None
                 </td>
                 <td className="py-4 px-6 text-center text-sm text-zinc-500">
-                  Notebooks / Python Scripts
+                  Significant
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  Minimal
+                </td>
+              </tr>
+              <tr className="border-b border-zinc-100">
+                <td className="py-4 px-6 text-sm text-zinc-600 font-semibold">Vendor Lock-In</td>
+                <td className="py-4 px-6 text-center text-sm font-medium text-zinc-900 bg-zinc-50/50">
+                  None (open source)
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  Possible
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  Possible
+                </td>
+              </tr>
+              <tr className="border-b border-zinc-100">
+                <td className="py-4 px-6 text-sm text-zinc-600 font-semibold">Best For</td>
+                <td className="py-4 px-6 text-center text-sm font-medium text-zinc-900 bg-zinc-50/50">
+                  Production AI testing in CI
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  Benchmarking and fine-tuning
+                </td>
+                <td className="py-4 px-6 text-center text-sm text-zinc-500">
+                  Prompt engineering
                 </td>
               </tr>
             </tbody>
@@ -382,21 +414,59 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* When to Use What Section */}
+      <section className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto w-full border-t border-zinc-100">
+        <div className="text-center mb-16 space-y-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-zinc-900">
+            AI Testing Like Everything Else
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="p-8 rounded-2xl border border-zinc-200 bg-white space-y-4">
+            <h3 className="text-xl font-bold text-zinc-900">Same Assertion Mindset</h3>
+            <p className="text-zinc-600">Use familiar expectations for AI quality, not new research paradigms.</p>
+            <ul className="space-y-2 text-sm text-zinc-500">
+              <li>• Playwright tests UI flows</li>
+              <li>• Evaliphy tests AI responses</li>
+              <li>• Both use clear pass/fail assertions</li>
+            </ul>
+          </div>
+          <div className="p-8 rounded-2xl border border-zinc-100 bg-zinc-50/50 space-y-4">
+            <h3 className="text-xl font-bold text-zinc-900">Open by Design</h3>
+            <p className="text-zinc-600">No proprietary lock-in. Keep ownership of your tests, results, and workflows.</p>
+            <ul className="space-y-2 text-sm text-zinc-500">
+              <li>• Open source framework</li>
+              <li>• Works with major LLM providers</li>
+              <li>• Run local or inside CI/CD</li>
+            </ul>
+          </div>
+          <div className="p-8 rounded-2xl border border-zinc-100 bg-zinc-50/50 space-y-4">
+            <h3 className="text-xl font-bold text-zinc-900">Built for Shipping Teams</h3>
+            <p className="text-zinc-600">Move from manual checks to repeatable AI quality gates before release.</p>
+            <ul className="space-y-2 text-sm text-zinc-500">
+              <li>• Catch regressions before users do</li>
+              <li>• Share human-readable reports across teams</li>
+              <li>• Keep AI testing in your normal workflow</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA Section */}
       <section className="py-24 bg-zinc-900 text-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 text-center space-y-8">
           <h2 className="text-4xl md:text-5xl font-bold">
-            Ready to test your RAG pipeline?
+            Ready to simplify AI testing?
           </h2>
           <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            Join the open beta and start evaluating your AI in under 5 minutes.
+            Start testing any AI system with simple assertions, CI integration, and reports your team can read instantly.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/docs/quick-start"
               className="px-8 py-3 bg-white text-zinc-900 rounded-lg font-medium hover:bg-zinc-100 transition-colors"
             >
-              Get Started Now
+              Start Testing Now
             </Link>
             <Link
               href="https://github.com/Evaliphy/evaliphy"
